@@ -73,14 +73,14 @@ body {
     overflow-x: hidden;
 }
 
-/* Navbar Section */
+/* --- NEW HEADER STYLES --- */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 16px 80px;
     background-color: var(--color-secondary);
-    margin-bottom: var(--section-spacing); /* Consistent spacing below header */
+    margin-bottom: var(--section-spacing);
 }
 
 header .logo a {
@@ -90,28 +90,44 @@ header .logo a {
     font-size: xx-large;
 }
 
-header .nav-menu ul {
+/* Desktop Navigation */
+.nav-bar {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.nav-bar ul {
     list-style: none;
     display: flex;
     gap: 32px;
+    margin: 0;
+    padding: 0;
     font-family: 'FiraMonoRegular', monospace;
 }
 
-header .nav-menu ul li a {
+.nav-bar ul li a {
     text-decoration: none;
     color: var(--color-primary);
     font-weight: medium;
     font-size: larger;
 }
 
-header .buttons {
+.nav-bar .buttons {
     display: flex;
     gap: 8px;
 }
 
-/* Hamburger Menu */
+/* Right side of header */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Hamburger Menu Icon */
 .hamburger {
-    display: none;
+    display: none; /* Hidden on desktop */
     cursor: pointer;
 }
 
@@ -120,10 +136,11 @@ header .buttons {
     width: 25px;
     height: 3px;
     margin: 5px auto;
-    -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
     background-color: var(--color-primary);
 }
+
+/* --- END OF NEW HEADER STYLES --- */
 
 
 /* Button styles, updated to react to dark mode */
@@ -627,8 +644,61 @@ svg:hover, .icon:hover {
     fill: var(--color-secondary);
 }
 
-/* Media Queries for Responsive Spacing */
+/* --- RESPONSIVE STYLES --- */
 @media (max-width: 1024px) {
+    header {
+        padding: 16px 30px;
+    }
+
+    /* Show hamburger, hide nav bar */
+    .hamburger {
+        display: block;
+    }
+    .nav-bar {
+        position: fixed;
+        left: -100%; /* Hide off-screen */
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--color-secondary);
+        z-index: 100;
+        
+        /* Center content */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+
+        transition: left 0.3s ease-in-out;
+    }
+
+    /* Style for when menu is active */
+    .nav-bar.active {
+        left: 0;
+    }
+    .nav-bar ul {
+        flex-direction: column;
+        text-align: center;
+        font-size: 24px;
+    }
+    .nav-bar .buttons {
+        flex-direction: column;
+    }
+
+
+    /* Animate hamburger to an 'X' */
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* General responsive adjustments */
     .second-section p, .cta p {
         width: auto; /* Allow text to wrap naturally */
     }
@@ -636,47 +706,8 @@ svg:hover, .icon:hover {
     .benefit, .stats, .feedback-cards {
         flex-direction: column;
     }
-
-    .hamburger {
-        display: block;
-    }
-
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
-
-    .nav-menu {
-        position: fixed;
-        left: -100%;
-        top: 70px;
-        gap: 0;
-        flex-direction: column;
-        background-color: var(--color-secondary);
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-    }
-
-    .nav-menu.active {
-        left: 0;
-    }
-
-    header {
-        padding: 16px 30px;
-    }
-
-    .nav-menu ul {
-        flex-direction: column;
-    }
 }
+
 @media (max-width: 768px) {
     :root {
         --section-spacing: 40px;
@@ -723,5 +754,4 @@ svg:hover, .icon:hover {
         align-items: center;
         text-align: center;
     }
-
 }
