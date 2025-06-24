@@ -90,14 +90,14 @@ header .logo a {
     font-size: xx-large;
 }
 
-header nav ul {
+header .nav-menu ul {
     list-style: none;
     display: flex;
     gap: 32px;
     font-family: 'FiraMonoRegular', monospace;
 }
 
-header nav ul li a {
+header .nav-menu ul li a {
     text-decoration: none;
     color: var(--color-primary);
     font-weight: medium;
@@ -108,6 +108,23 @@ header .buttons {
     display: flex;
     gap: 8px;
 }
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--color-primary);
+}
+
 
 /* Button styles, updated to react to dark mode */
 .button {
@@ -142,6 +159,7 @@ header .buttons {
     background-color: var(--color-secondary);
     color: var(--color-primary);
 }
+
 
 /* Hero Section */
 .hero-section {
@@ -615,7 +633,47 @@ svg:hover, .icon:hover {
         width: auto; /* Allow text to wrap naturally */
     }
 
-    .benefit, .stats {
+    .benefit, .stats, .feedback-cards {
+        flex-direction: column;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        gap: 0;
+        flex-direction: column;
+        background-color: var(--color-secondary);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    header {
+        padding: 16px 30px;
+    }
+
+    .nav-menu ul {
         flex-direction: column;
     }
 }
@@ -633,18 +691,6 @@ svg:hover, .icon:hover {
         padding: 0 10px;
     }
 
-    header {
-        flex-direction: column;
-        gap: 20px;
-        padding: 16px;
-    }
-
-    header nav ul {
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
-    }
-
     .section-header,
     .benefit,
     .stats,
@@ -656,9 +702,10 @@ svg:hover, .icon:hover {
         text-align: center;
     }
 
-    .cards, .feedback-cards, .stat-numbers, .feature-buttons {
+    .cards, .feedback-cards, .stat-numbers, .feature-buttons, .cta-buttons {
         flex-direction: column;
         align-items: center;
+        justify-content: center;
     }
     
     .footer-links {
@@ -672,12 +719,9 @@ svg:hover, .icon:hover {
         text-align: center;
     }
 
-    .cta-buttons {
-        justify-content: center;
-    }
-
     .footer-left, .footer-right {
         align-items: center;
         text-align: center;
     }
+
 }
